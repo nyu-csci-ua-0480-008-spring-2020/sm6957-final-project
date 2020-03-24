@@ -19,3 +19,7 @@ let userMealPlanData = new mongoose.Schema({
       ]
 })
 
+module.exports = {
+    userMealPlanData: userMealPlanData,
+    userPersonalInfo: userPersonalInfo
+}
