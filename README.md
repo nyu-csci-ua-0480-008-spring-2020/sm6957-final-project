@@ -1,26 +1,21 @@
-The content below is an example project proposal / requirements document. Replace the text below the lines marked "__TODO__" with details specific to your project. Remove the "TODO" lines.
+QuickMeal
 
-(___TODO__: your project name_)
-
-# Shoppy Shoperson 
+# QuickMeal
 
 ## Overview
 
 (___TODO__: a brief one or two paragraph, high-level description of your project_)
 
-Remembering what to buy at the grocery store is waaaaay too difficult. Also, shopping for groceries when you're hungry leads to regrettable purchases. Sooo... that's where Shoppy Shoperson comes in!
+The inability to pay for meal plans and on-campus dining services or have time to consistently cook can oftentimes pressure students into pursuing unhealthy, less expensive eating options, or worse, not eating at all. Food insecurity has become an increasingly greater issue as the cost of living and tuition steadily increase. 
 
-Shoppy Shoperson is a web app that will allow users to keep track of multiple grocery lists. Users can register and login. Once they're logged in, they can create or view their grocery list. For every list that they have, they can add items to the list or cross off items.
+QuickMeal is a web app that will allow users to send and recieve meal swipes that will go directly to students' accounts or to a general donation pool. Once students create an account with their university credentials and logged in, they can view their current meal plan, and send/request meal swipes to one student or to a general donation pool.
 
 
 ## Data Model
 
 (___TODO__: a description of your application's data and their relationships to each other_) 
 
-The application will store Users, Lists and Items
-
-* users can have multiple lists (via references)
-* each list can have multiple items (by embedding)
+The application will store User's personal info (first and last name and, university ID number), meal plan, university name, and number of meals in the current donation pool
 
 (___TODO__: sample documents_)
 
@@ -28,9 +23,11 @@ An Example User:
 
 ```javascript
 {
-  username: "shannonshopper",
+  userFirstName: "Selamawit",
+  userLastName: "Moges",
+  userID: "sm6957",
   hash: // a password hash,
-  lists: // an array of references to List documents
+  mealPlanType: // an object holding the type of meal plan
 }
 ```
 
@@ -38,20 +35,21 @@ An Example List with Embedded Items:
 
 ```javascript
 {
-  user: // a reference to a User object
-  name: "Breakfast foods",
-  items: [
-    { name: "pancakes", quantity: "9876", checked: false},
-    { name: "ramen", quantity: "2", checked: true},
+  userID: // a reference to a User object
+  name: "Meal Plan Type",
+  mealPlan: [
+    { planName: "300 Flex Plus", 
+    mealPerSemester: 300, 
+    diningDollars: 250
+    }
   ],
-  createdAt: // timestamp
+  numberOfMealsDistributed: //number of meals swipes sent to other students       accounts
 }
 ```
 
 
 ## [Link to Commented First Draft Schema](db.js) 
 
-(___TODO__: create a first draft of your Schemas in db.js and link to it_)
 
 ## Wireframes
 
