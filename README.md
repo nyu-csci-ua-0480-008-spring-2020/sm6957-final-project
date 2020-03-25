@@ -31,19 +31,19 @@ An Example User:
 }
 ```
 
-An Example List with Embedded Items:
+An Example User Meal Plan:
 
 ```javascript
 {
-  userID: // a reference to a User object
-  name: "Meal Plan Type",
-  mealPlan: [
-    { planName: "300 Flex Plus", 
+  // a reference to a User object
+  userID:, 
+  mealPlan: 
+    { mealPlanName: "300 Flex Plus", 
     mealPerSemester: 300, 
-    diningDollars: 250
-    }
-  ],
-  numberOfMealsDistributed: //number of meals swipes sent to other students       accounts
+    diningDollars: 250,
+    numberOfMealsDistributed: 0 //number of meals swipes sent to other students accounts
+    },
+   
 }
 ```
 
