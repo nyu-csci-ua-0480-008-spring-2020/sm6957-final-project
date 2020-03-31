@@ -42,7 +42,6 @@ An Example User Meal Plan:
 }
 ```
 
-
 ## [Link to Commented First Draft Schema](db.js) 
 
 https://github.com/nyu-csci-ua-0480-008-spring-2020/sm6957-final-project/blob/master/db.js
@@ -90,6 +89,7 @@ User Story:
 * (3 points) Perform unit testing using Mocha
 
 ## [Link to Initial Main Project File](app.js) 
+https://github.com/nyu-csci-ua-0480-008-spring-2020/sm6957-final-project/blob/master/app.js
 
 (___TODO__: create a skeleton Express application with a package.json, app.js, views folder, etc. ... and link to your initial app.js_)
 
