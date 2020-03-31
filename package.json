@@ -1,0 +1,23 @@
+{
+  "name": "sm6957-final-project",
+  "version": "1.0.0",
+  "description": "web app to send/recieve meal swipes",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nyu-csci-ua-0480-008-spring-2020/sm6957-final-project.git"
+  },
+  "author": "Selam Moges",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nyu-csci-ua-0480-008-spring-2020/sm6957-final-project/issues"
+  },
+  "homepage": "https://github.com/nyu-csci-ua-0480-008-spring-2020/sm6957-final-project#readme",
+  "devDependencies": {
+    "express": "^4.17.1",
+    "hbs": "^4.1.0"
+  }
+}
