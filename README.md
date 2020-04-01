@@ -79,14 +79,13 @@ User Story:
 
 (___TODO__: the research topics that you're planning on working on along with their point values... and the total points of research topics listed_)
 
-* (5 points) Integrate user authentication
+* (3 points) Integrate user authentication
     * I'm going to be using passport for user authentication
 
 * (2 points) Use a CSS framework (bootstrap)
 
 * (3 points) Perform client side form validation using JavaScript 
 
-* (3 points) Perform unit testing using Mocha
 
 ## [Link to Initial Main Project File](app.js) 
 https://github.com/nyu-csci-ua-0480-008-spring-2020/sm6957-final-project/blob/master/app.js
