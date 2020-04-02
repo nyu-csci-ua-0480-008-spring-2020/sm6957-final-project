@@ -17,8 +17,14 @@ let userPersonalInfo = new mongoose.Schema({
 
 //this will store specific meal plan that each user has 
 let userMealPlanData = new mongoose.Schema({ 
-    userID: 'student id',
-    mealPlan: 
+    userID: 'student_id',
+    mealPlanFall: 
+        { planName: "300 Flex Plus", 
+          mealPerSemester: 300, 
+          diningDollars: 250,
+          numberOfMealsDistributed: 0
+        },
+    mealPlanSpring: 
         { planName: "300 Flex Plus", 
           mealPerSemester: 300, 
           diningDollars: 250,
@@ -26,6 +32,19 @@ let userMealPlanData = new mongoose.Schema({
         }
       
 })
+
+//how many meals a user sent to another user or to the donation pool 
+let Exchange = new mongoose.Schema({
+    userID: 'student_id', 
+   direct: {
+       studentID: 'student_id',
+       amount: 0
+   },
+   donation: {
+       amount:0
+   }
+})
+
 
 module.exports = {
     userMealPlanData: userMealPlanData,
