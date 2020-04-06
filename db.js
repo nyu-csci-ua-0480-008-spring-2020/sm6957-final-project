@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 /**
  * The database will be storing the user's personal 
  * information as well as their meal plan information.
@@ -33,39 +34,54 @@ let userPersonalInfo = new mongoose.Schema({
         type: String, 
         required: true
     },
+    // mealPlanInfo:[userMealPlanData],
+    // exchangeInfo: [ExchangeData]
+
 });
 
 //this will store specific meal plan that each user has 
 
-// let userMealPlanData = new mongoose.Schema({ 
-//     userID: 'student_id',
-//     mealPlanFall: 
-//         { planName: "300 Flex Plus", 
-//           mealPerSemester: 300, 
-//           diningDollars: 250,
-//           numberOfMealsDistributed: 0
-//         },
-//     mealPlanSpring: 
-//         { planName: "300 Flex Plus", 
-//           mealPerSemester: 300, 
-//           diningDollars: 250,
-//           numberOfMealsDistributed: 0
-//         }
+let userMealPlanData = new mongoose.Schema({ 
+    mealPlanFall: 
+        { planName: {
+            type: String, 
+        }, 
+          mealPerSemester: {
+            type: Number, 
+        }, 
+          diningDollars: {
+            type: Number, 
+        },
+          numberOfMealsDistributed:0
+        },
+    mealPlanSpring: 
+        { planName: {
+            type: String, 
+        }, 
+          mealPerSemester: {
+            type: Number, 
+        }, 
+          diningDollars: {
+            type: Number, 
+        },
+          numberOfMealsDistributed: 0
+        }
       
-// })
+})
 
 //how many meals a user sent to another user or to the donation pool 
 
-// let Exchange = new mongoose.Schema({
-//     userID: 'student_id', 
-//    direct: {
-//        studentID: 'student_id',
-//        amount: 0
-//    },
-//    donation: {
-//        amount:0
-//    }
-// })
+let ExchangeData = new mongoose.Schema({
+   direct: {
+       studentID: {
+        type: String, 
+    },
+       amount: 0
+   },
+   donation: {
+       amount:0
+   }
+})
 
 const User = module.exports = mongoose.model('userPersonalInfo', userPersonalInfo)
 mongoose.connect('mongodb://localhost/UserData',{ useNewUrlParser: true, useUnifiedTopology: true });

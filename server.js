@@ -17,14 +17,26 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(express.static(path.join(__dirname, 'public')));
 let tester = '';
   const initializePassport = require('./passport-config')
-  initializePassport(
+  async function getInfo(email) {
+    await User.find({}, function(err, val) {
+        console.log('here')
+        let t = val.map(t => t.email === email)
+        for(let i = 0; i < t.length; i++){
+            if(t[i]){
+                return val[i]
+            }
+        }
+        return undefined;
+   
+    })
+  }
+   initializePassport(
     passport,
     email => users.find(user => user.email === email),
    id => users.find(user => user.id === id)
     // email =>  User.find({email: email}),
     // id => User.find({userID: userID})
   )
-  
   const users = []
   app.set('view-engine', 'ejs')
   app.use(express.urlencoded({ extended: false }))
@@ -47,6 +59,7 @@ let tester = '';
   })
   
   app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+    
     successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
