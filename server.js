@@ -1,12 +1,10 @@
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
   }
-  const db = require('./db.js');
   const mongoose = require('mongoose');
-  const User = mongoose.model('userPersonalInfo');
   mongoose.Promise = global.Promise;
-  const path = require('path');
 
+  const db = require('./db.js');
   const express = require('express')
   const app = express()
   const bcrypt = require('bcrypt')
@@ -14,30 +12,19 @@ if (process.env.NODE_ENV !== 'production') {
   const flash = require('express-flash')
   const session = require('express-session')
   const methodOverride = require('method-override')
-  app.use(express.static(path.join(__dirname, 'public')));
-let tester = '';
+  const User = mongoose.model('User');
   const initializePassport = require('./passport-config')
-  async function getInfo(email) {
-    await User.find({}, function(err, val) {
-        console.log('here')
-        let t = val.map(t => t.email === email)
-        for(let i = 0; i < t.length; i++){
-            if(t[i]){
-                return val[i]
-            }
-        }
-        return undefined;
-   
-    })
-  }
-   initializePassport(
+  let userMealSize = 0;
+  let userDiningDollars = 0;
+  initializePassport(
     passport,
     email => users.find(user => user.email === email),
-   id => users.find(user => user.id === id)
-    // email =>  User.find({email: email}),
-    // id => User.find({userID: userID})
+    id => users.find(user => user.id === id)
   )
+  
   const users = []
+  app.use(express.static(__dirname + '/public'));
+
   app.set('view-engine', 'ejs')
   app.use(express.urlencoded({ extended: false }))
   app.use(flash())
@@ -51,22 +38,36 @@ let tester = '';
   app.use(methodOverride('_method'))
   
   app.get('/', checkAuthenticated, (req, res) => {
-    res.render('landing.hbs')
+    res.render('index.ejs', { userMealSize})
+  })
+
+  app.post('/', (req, res) => {
+    console.log(req.body.donate)
+    console.log(req.body.name)
+    let v = req.body.name
+    User.update({email: v}, {$set: {university: 'GEORGIA STATE'}})
+
+    //console.log(v)
+  
+
+    res.redirect('/')
+    //res.render('index.ejs', { name: req.user.name })
   })
   
+ 
+
   app.get('/login', checkNotAuthenticated, (req, res) => {
-    res.render('login.hbs')
+    res.render('login.ejs')
   })
   
   app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-    
     successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
   }))
   
   app.get('/register', checkNotAuthenticated, (req, res) => {
-    res.render('register.hbs')
+    res.render('register.ejs')
   })
   
   app.post('/register', checkNotAuthenticated, async (req, res) => {
@@ -74,36 +75,56 @@ let tester = '';
       const hashedPassword = await bcrypt.hash(req.body.password, 10)
       let fname = req.body.fname
       let lname = req.body.lname
-      let email = req.body.email
-      let uni = req.body.university
+      let university = req.body.university
+      let email = req.body.email 
       let userID = req.body.userID
+      let fallMealPlanName = req.body.fallMealName
+      let springMealPlanName = req.body.springMealName
+      let campusCash = req.body.campusCash
+      let mealSize = 0;
+      let dd = 0;
+      if(springMealPlanName === "300-flex-plus" || fallMealPlanName === "300-flex-plus" ) {
+        mealSize = 300;
+        dd = 250
+      }else if(springMealPlanName === "300-flex" || fallMealPlanName === "300-flex" ) {
+        mealSize = 300;
+        dd = 150
+      } else if(springMealPlanName === "225-flex-plus" || fallMealPlanName === "225-flex-plus" ) {
+        mealSize = 225;
+        dd = 300
+      } else if(springMealPlanName === "225-flex" || fallMealPlanName === "225-flex" ) {
+        mealSize = 225;
+        dd = 200
+      } 
       let password = hashedPassword
-
       let newUser = {
-          'firstName': fname, 
-          'lastName': lname, 
-          'email': email, 
-          'university': uni, 
-          'userID':userID, 
-          'password': password
-      }
+                  'firstName': fname, 
+                  'lastName': lname, 
+                  'email': email, 
+                  'university': university, 
+                  'password': password,
+                  'userID':userID,
+                  'mealPlanInfo': {'mealPlanFall':{'planName': fallMealPlanName, 'mealPerSemester': mealSize, 'diningDollars': dd,'campusCash': campusCash, 'numberOfMealsDistributed': 0}, 
+                  'mealPlanSpring': {'planName': springMealPlanName, 'mealPerSemester': mealSize, 'diningDollars': dd,'campusCash': campusCash, 'numberOfMealsDistributed': 0}},
+                  'ExchangeData':{'direct': [{'studentID': "", 'amount': 0}], 'donation': 0}
+              }
+      userMealSize = mealSize;
+      userDiningDollars = dd;
       users.push({
         id: Date.now().toString(),
         fname: req.body.fname,
         lname: req.body.lname,
         email: req.body.email,
-        university: req.body.university,
-        userID: req.body.userID,
         password: hashedPassword
       })
-      
-    const user = new User(newUser);
+
+      const user = new User(newUser);
     user.save((err, student) => {
-        tester = student.email
-      //console.log(student.em);
+        console.log(student)
+        console.log(err)
       res.redirect('/login')
     });
-      
+      //res.redirect('/login')
     } catch {
       res.redirect('/register')
     }
@@ -115,6 +136,8 @@ let tester = '';
   })
   
   function checkAuthenticated(req, res, next) {
+    //ADD CODE HERE 
+    console.log(JSON.stringify(req.body))
     if (req.isAuthenticated()) {
       return next()
     }

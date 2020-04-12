@@ -1,0 +1,31 @@
+body{
+    background-color:#e9e8f9;
+}
+
+.allAccountInfo {
+    margin-top: 20px;
+    /* margin-left: 20px;
+    margin-right: 20px; */
+    height: 200px;
+    display: table;
+    width: 100%; /*Optional*/
+    table-layout: fixed; /*Optional*/
+    border-spacing: 30px; /*Optional*/
+    background-color: #071049;
+}
+.donate {
+    margin-top: 20px;
+    margin-left: 50px;
+    background-color: #071049;
+
+    width: 280px;
+    height: 410px;
+}
+
+
+
+
+.Column {
+    display: table-cell;
+    background-color:#e9e8f9; /*Optional*/
+}

@@ -1,0 +1,41 @@
+
+<head>
+  <link href="/css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<div class="allAccountInfo">
+    <div class="Column">Meal Swipes
+      <h1><%= userMealSize %></h1>
+    </div>
+    
+    <div class="Column">Dining Dollars</div>
+    <div class="Column">Campus Cash</div>
+</div>
+
+
+<div class="donate">
+  <h2 style="color: rgb(255, 255, 255);">Donate</h2>
+<form action="" method="POST">
+  <!-- <label for="donate">Donate</label> -->
+    Email: <input type="text" id="name" name="name">
+    Amount : <input type="text" id="donate" name="donate">
+  <button type="submit">Submit</button>
+</form>
+</div>
+
+<div class="request">
+  <h2 style="color: rgb(255, 255, 255);">Request</h2>
+<form action="" method="POST">
+  <!-- <label for="donate">Donate</label> -->
+    Email: <input type="text" id="name" name="name">
+    Amount : <input type="text" id="request" name="request">
+  <button type="submit">Submit</button>
+</form>
+</div>
+
+
+
+<form action="/logout?_method=DELETE" method="POST">
+  <button type="submit">Log Out</button>
+</form>
+

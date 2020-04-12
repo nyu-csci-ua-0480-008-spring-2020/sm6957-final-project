@@ -8,7 +8,6 @@ const mongoose = require('mongoose');
  */
 
 //this will store users personal information 
-let Schema = mongoose.Schema;
 let userPersonalInfo = new mongoose.Schema({
     firstName: {
         type: String, 
@@ -34,15 +33,7 @@ let userPersonalInfo = new mongoose.Schema({
         type: String, 
         required: true
     },
-    // mealPlanInfo:[userMealPlanData],
-    // exchangeInfo: [ExchangeData]
-
-});
-
-//this will store specific meal plan that each user has 
-
-let userMealPlanData = new mongoose.Schema({ 
-    mealPlanFall: 
+    mealPlanInfo:{   mealPlanFall: 
         { planName: {
             type: String, 
         }, 
@@ -52,7 +43,10 @@ let userMealPlanData = new mongoose.Schema({
           diningDollars: {
             type: Number, 
         },
-          numberOfMealsDistributed:0
+        campusCash: {
+            type: Number, 
+        },
+          numberOfMealsDistributed:Number
         },
     mealPlanSpring: 
         { planName: {
@@ -64,27 +58,59 @@ let userMealPlanData = new mongoose.Schema({
           diningDollars: {
             type: Number, 
         },
-          numberOfMealsDistributed: 0
-        }
+        campusCash: {
+            type: Number, 
+        },
+          numberOfMealsDistributed: Number
+        }},
+    ExchangeData: {direct: [{studentID: {type: String},amount: {type: Number}}],
+    donation: {
+        type: Number
+    }}
+
+});
+
+//this will store specific meal plan that each user has 
+
+// let userMealPlanData = new mongoose.Schema({ 
+//     mealPlanFall: 
+//         { planName: {
+//             type: String, 
+//         }, 
+//           mealPerSemester: {
+//             type: Number, 
+//         }, 
+//           diningDollars: {
+//             type: Number, 
+//         },
+//           numberOfMealsDistributed:Number
+//         },
+//     mealPlanSpring: 
+//         { planName: {
+//             type: String, 
+//         }, 
+//           mealPerSemester: {
+//             type: Number, 
+//         }, 
+//           diningDollars: {
+//             type: Number, 
+//         },
+//           numberOfMealsDistributed: Number
+//         }
       
-})
+// })
 
 //how many meals a user sent to another user or to the donation pool 
 
-let ExchangeData = new mongoose.Schema({
-   direct: {
-       studentID: {
-        type: String, 
-    },
-       amount: 0
-   },
-   donation: {
-       amount:0
-   }
-})
+// let ExchangeData = new mongoose.Schema({
+//    direct: [{studentID: {type: String},amount: {type: Number}}],
+//    donation: {
+//        amount: {type: Number}
+//    }
+// })
 
-const User = module.exports = mongoose.model('userPersonalInfo', userPersonalInfo)
-mongoose.connect('mongodb://localhost/UserData',{ useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.model('User', userPersonalInfo)
+mongoose.connect('mongodb://localhost/test2',{ useNewUrlParser: true, useUnifiedTopology: true });
 // module.exports = {
 //     userMealPlanData: userMealPlanData,
 //     userPersonalInfo: userPersonalInfo
