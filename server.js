@@ -42,10 +42,12 @@ if (process.env.NODE_ENV !== 'production') {
   })
 
   app.post('/', (req, res) => {
-    console.log(req.body.donate)
-    console.log(req.body.name)
-    let v = req.body.name
-    User.update({email: v}, {$set: {university: 'GEORGIA STATE'}})
+
+    //console.log(req.body)
+    console.log(req.body.exampleInputEmail1)
+    console.log(req.body.amount)
+    //let v = req.body.name
+    //User.update({email: v}, {$set: {university: 'GEORGIA STATE'}})
 
     //console.log(v)
   

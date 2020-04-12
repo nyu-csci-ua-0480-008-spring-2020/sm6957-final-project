@@ -1,7 +1,17 @@
 
 <head>
   <link href="/css/style.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
+
+<body>
+ <div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <div><h1>TEST</h1></div>
+ 
+</div>
+<div id="main">
+<button class="openbtn" onclick="openNav()">&#9776; Open Sidebar</button>
 
 <div class="allAccountInfo">
     <div class="Column">Meal Swipes
@@ -13,29 +23,127 @@
 </div>
 
 
+<div class="allAccountInfo1">
 <div class="donate">
-  <h2 style="color: rgb(255, 255, 255);">Donate</h2>
-<form action="" method="POST">
-  <!-- <label for="donate">Donate</label> -->
+  <h2 style="color: rgb(255, 255, 255); text-align: center;">Donate</h2>
+  <form action="" method="POST">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email"  placeholder="Enter email">
+    </div>
+    <div>
+      <label for="mealtype">Type </label>
+      <br>
+      <select id="mealtype" name="mealtype">
+        <option value="none">--</option>
+        <option value="dining-dollars">Dining Dollars</option>
+        <option value="meal-swipes">Meal Swipes</option>
+   
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input type="text" class="form-control" id="amount" placeholder="Enter Amount">
+    </div>
+   
+    <button type="submit" class="btn btn-primary" style="background-color: #e9e8f9; border: none; color: black;">Submit</button>
+  </form>
+
+<!-- <form action="" method="POST">
+  <label for="donate">Donate</label> 
     Email: <input type="text" id="name" name="name">
     Amount : <input type="text" id="donate" name="donate">
   <button type="submit">Submit</button>
+</form> -->
+
+</div>
+
+<div class="request">
+  <h2 style="color: rgb(255, 255, 255);text-align: center;">Request</h2>
+  <form action="" method="POST">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+    <div>
+      <label for="mealtype">Type </label>
+      <br>
+      <select id="mealtype" name="mealtype">
+        <option value="none">--</option>
+        <option value="dining-dollars">Dining Dollars</option>
+        <option value="meal-swipes">Meal Swipes</option>
+   
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Amount</label>
+      <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Amount">
+    </div>
+   
+    <button type="submit" class="btn btn-primary" style="background-color: #e9e8f9; border: none; color: black;">Submit</button>
+  </form>
+
+<!-- <form action="" method="POST">
+   <label for="donate">Donate</label> 
+    Email: <input type="text" id="name" name="name">
+    Amount : <input type="text" id="request" name="request">
+  <button type="submit">Submit</button> -->
 </form>
 </div>
 
 <div class="request">
-  <h2 style="color: rgb(255, 255, 255);">Request</h2>
-<form action="" method="POST">
-  <!-- <label for="donate">Donate</label> -->
+  <h2 style="color: rgb(255, 255, 255);text-align: center;">Send</h2>
+  <form action="" method="POST">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+    <div>
+      <label for="mealtype">Type </label>
+      <br>
+      <select id="mealtype" name="mealtype">
+        <option value="none">--</option>
+        <option value="dining-dollars">Dining Dollars</option>
+        <option value="meal-swipes">Meal Swipes</option>
+   
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input type="text"  id="amount" placeholder="Enter Amount">
+    </div>
+    <!-- class="form-control" -->
+   
+    <button type="submit" class="btn btn-primary" style="background-color: #e9e8f9; border: none; color: black;">Submit</button>
+  </form>
+
+<!-- <form action="" method="POST">
+   <label for="donate">Donate</label> 
     Email: <input type="text" id="name" name="name">
     Amount : <input type="text" id="request" name="request">
-  <button type="submit">Submit</button>
+  <button type="submit">Submit</button> -->
 </form>
 </div>
-
-
+</div>
 
 <form action="/logout?_method=DELETE" method="POST">
   <button type="submit">Log Out</button>
 </form>
+      </div>
+      <script>
+        /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+function openNav() {
+  document.getElementById("mySidebar").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
+
+/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft = "0";
+}
+
+      </script>
+</body>
 
