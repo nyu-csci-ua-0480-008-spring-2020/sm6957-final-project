@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body>
+<body style="background-color:#9693c2;">
  <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <div><h1>TEST</h1></div>
@@ -18,7 +18,9 @@
       <h1><%= userMealSize %></h1>
     </div>
     
-    <div class="Column">Dining Dollars</div>
+    <div class="Column">Dining Dollars
+    <h1>$<%= userDiningDollars %></h1>
+  </div>
     <div class="Column">Campus Cash</div>
 </div>
 
@@ -111,7 +113,7 @@
     
     <div class="form-group">
       <label for="amount">Amount</label>
-      <input type="text"  id="amount" placeholder="Enter Amount">
+      <input type="text" class="form-control" id="amount" placeholder="Enter Amount">
     </div>
     <!-- class="form-control" -->
    

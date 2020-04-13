@@ -38,7 +38,7 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(methodOverride('_method'))
   
   app.get('/', checkAuthenticated, (req, res) => {
-    res.render('index.ejs', { userMealSize})
+    res.render('index.ejs', { userMealSize, userDiningDollars})
   })
 
   app.post('/', (req, res) => {
