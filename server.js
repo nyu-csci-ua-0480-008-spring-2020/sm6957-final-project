@@ -16,6 +16,8 @@ if (process.env.NODE_ENV !== 'production') {
   const initializePassport = require('./passport-config')
   let userMealSize = 0;
   let userDiningDollars = 0;
+  let userEmail = ""
+  let userCampusCash = 0
   initializePassport(
     passport,
     email => users.find(user => user.email === email),
@@ -38,22 +40,22 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(methodOverride('_method'))
   
   app.get('/', checkAuthenticated, (req, res) => {
-    res.render('index.ejs', { userMealSize, userDiningDollars})
+    res.render('index.ejs', { userMealSize, userDiningDollars, userCampusCash})
   })
 
   app.post('/', (req, res) => {
+    info(req.body.email,req.body.amount)
+    
+    let amount = req.body.amount
+    let total = userMealSize
+    let finalAmount = parseInt(total) - parseInt(amount)
 
-    //console.log(req.body)
-    console.log(req.body.exampleInputEmail1)
-    console.log(req.body.amount)
-    //let v = req.body.name
-    //User.update({email: v}, {$set: {university: 'GEORGIA STATE'}})
-
-    //console.log(v)
-  
-
+    let myquery1 = { email: userEmail }
+    let newvalues1 = { $set: { "mealPlanInfo.mealPlanFall.mealPerSemester": finalAmount }}
+    User.updateOne(myquery1, newvalues1, function(err, res) {
+      
+  })
     res.redirect('/')
-    //res.render('index.ejs', { name: req.user.name })
   })
   
  
@@ -63,10 +65,14 @@ if (process.env.NODE_ENV !== 'production') {
   })
   
   app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+    
     successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
+    
   }))
+
+  
   
   app.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('register.ejs')
@@ -112,6 +118,8 @@ if (process.env.NODE_ENV !== 'production') {
               }
       userMealSize = mealSize;
       userDiningDollars = dd;
+      userEmail = email;
+      userCampusCash = campusCash
       users.push({
         id: Date.now().toString(),
         fname: req.body.fname,
@@ -122,8 +130,7 @@ if (process.env.NODE_ENV !== 'production') {
 
       const user = new User(newUser);
     user.save((err, student) => {
-        console.log(student)
-        console.log(err)
+       
       res.redirect('/login')
     });
       //res.redirect('/login')
@@ -139,7 +146,6 @@ if (process.env.NODE_ENV !== 'production') {
   
   function checkAuthenticated(req, res, next) {
     //ADD CODE HERE 
-    console.log(JSON.stringify(req.body))
     if (req.isAuthenticated()) {
       return next()
     }
@@ -153,5 +159,34 @@ if (process.env.NODE_ENV !== 'production') {
     }
     next()
   }
+
+  let info = function getInfo(email, amountEntered) {
+    User.find({}, function(err, val) {
+     
+       let t = val.map(t => t.email === email)
+       for(let i = 0; i < t.length; i++){
+           if(t[i]){
+               //let q = "mealPlanInfo.mealPlanFall.mealPerSemester"
+            let amount = amountEntered
+            let total = val[i].mealPlanInfo.mealPlanFall.mealPerSemester
+            let finalAmount = parseInt(total) + parseInt(amount)
+            
+            let myquery = { email: email }
+            let newvalues = { $set: { "mealPlanInfo.mealPlanFall.mealPerSemester": finalAmount }}
+            User.updateOne(myquery, newvalues, function(err, res) {
+                // console.log('done')
+                // console.log(err)
+            })
+
+            
+             
+            console.log(val[i].mealPlanInfo.mealPlanFall.mealPerSemester)
+               return val[i]
+           }
+       }
+       return undefined;
+  
+   })
+ }
   
   app.listen(3000)

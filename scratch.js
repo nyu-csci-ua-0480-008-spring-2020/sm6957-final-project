@@ -29,9 +29,38 @@ const user = new User(newUser);
 let myquery = { email: 'SMOGES@b.com' }
 let newvalues = { $set: { password: "TESTTT1234!" }}
 User.updateOne(myquery, newvalues, function(err, res) {
-    console.log('done')
-    console.log(err)
+    // console.log('done')
+    // console.log(err)
 })
+
+
+let info = function getInfo(email, amountEntered) {
+    User.find({}, function(err, val) {
+     
+       let t = val.map(t => t.email === email)
+       for(let i = 0; i < t.length; i++){
+           if(t[i]){
+               //let q = "mealPlanInfo.mealPlanFall.mealPerSemester"
+            let amount = amountEntered
+            let total = val[i].mealPlanInfo.mealPlanFall.mealPerSemester
+            let finalAmount = total + amount
+            let myquery = { email: email }
+            let newvalues = { $set: { "mealPlanInfo.mealPlanFall.mealPerSemester": finalAmount }}
+            User.updateOne(myquery, newvalues, function(err, res) {
+                // console.log('done')
+                // console.log(err)
+            })
+             
+            console.log(val[i].mealPlanInfo.mealPlanFall.mealPerSemester)
+               return val[i]
+           }
+       }
+       return undefined;
+  
+   })
+ }
+
+console.log(info('smoges16@gmail.com'))
 
 // if(User.find({email: 'SMOGES@b.com' })){
 //     console.log('here')
@@ -46,3 +75,5 @@ User.updateOne(myquery, newvalues, function(err, res) {
     //     console.log(student)
       
     // });
+
+
