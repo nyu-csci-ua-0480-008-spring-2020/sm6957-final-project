@@ -44,17 +44,7 @@ if (process.env.NODE_ENV !== 'production') {
   })
 
   app.post('/', (req, res) => {
-    info(req.body.email,req.body.amount)
-    
-    let amount = req.body.amount
-    let total = userMealSize
-    let finalAmount = parseInt(total) - parseInt(amount)
-
-    let myquery1 = { email: userEmail }
-    let newvalues1 = { $set: { "mealPlanInfo.mealPlanFall.mealPerSemester": finalAmount }}
-    User.updateOne(myquery1, newvalues1, function(err, res) {
-      
-  })
+    donate(req.body.yemail, req.body.email,req.body.amount)
     res.redirect('/')
   })
   
@@ -160,33 +150,52 @@ if (process.env.NODE_ENV !== 'production') {
     next()
   }
 
-  let info = function getInfo(email, amountEntered) {
-    User.find({}, function(err, val) {
-     
-       let t = val.map(t => t.email === email)
-       for(let i = 0; i < t.length; i++){
-           if(t[i]){
-               //let q = "mealPlanInfo.mealPlanFall.mealPerSemester"
-            let amount = amountEntered
-            let total = val[i].mealPlanInfo.mealPlanFall.mealPerSemester
-            let finalAmount = parseInt(total) + parseInt(amount)
-            
-            let myquery = { email: email }
-            let newvalues = { $set: { "mealPlanInfo.mealPlanFall.mealPerSemester": finalAmount }}
-            User.updateOne(myquery, newvalues, function(err, res) {
-                // console.log('done')
-                // console.log(err)
-            })
-
-            
+ let giver = function takeAway(giverEmail, amount) {
+  User.find({}, function(err, val) {
+   
+     let t = val.map(t => t.email === giverEmail)
+     for(let i = 0; i < t.length; i++){
+         if(t[i]){
+             giverCurrentMealSize = val[i].mealPlanInfo.mealPlanFall.mealPerSemester;
+             let new_giverMealSize = giverCurrentMealSize - amount;
+          let myquery = { email: giverEmail }
+          let newvalues = { $set: { "mealPlanInfo.mealPlanFall.mealPerSemester": new_giverMealSize }}
+          User.updateOne(myquery, newvalues, function(err, res) {
              
-            console.log(val[i].mealPlanInfo.mealPlanFall.mealPerSemester)
-               return val[i]
-           }
-       }
-       return undefined;
-  
-   })
- }
+          })
+         }
+     }
+     return undefined;
+
+ })
+}
+
+let reciever = function giveTo(email, amount) {
+  User.find({}, function(err, val) {
+   
+     let t = val.map(t => t.email === email)
+     for(let i = 0; i < t.length; i++){
+         if(t[i]){
+             let currentMealSize = val[i].mealPlanInfo.mealPlanFall.mealPerSemester;
+             let new_MealSize = parseInt(currentMealSize) + parseInt(amount);
+          let myquery = { email: email }
+          let newvalues = { $set: { "mealPlanInfo.mealPlanFall.mealPerSemester": parseInt(new_MealSize) }}
+          User.updateOne(myquery, newvalues, function(err, res) {
+              console.log('done')
+              console.log(err)
+          })
+         }
+     }
+     return undefined;
+
+ })
+}
+
+
+let donate = function donater(giverEmail, recieverEmail, amount) {
+
+  giver(giverEmail,amount)
+  reciever(recieverEmail,amount)
+}
   
   app.listen(3000)

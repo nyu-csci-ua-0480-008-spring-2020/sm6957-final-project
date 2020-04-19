@@ -7,7 +7,7 @@ const User = mongoose.model('User');
 let newUser = {
     'firstName': 'test_f', 
     'lastName': "test_l", 
-    'email': 'SMOGES@b.com', 
+    'email': 'SMOGES1@b.com', 
     'university': "uni:=", 
     'password': "password",
     'userID':"userID",
@@ -26,33 +26,26 @@ const user = new User(newUser);
 //     console.log(student)
 
 // });
-let myquery = { email: 'SMOGES@b.com' }
-let newvalues = { $set: { password: "TESTTT1234!" }}
-User.updateOne(myquery, newvalues, function(err, res) {
-    // console.log('done')
-    // console.log(err)
-})
 
 
-let info = function getInfo(email, amountEntered) {
+
+
+
+let giver = function takeAway(giverEmail, amount) {
     User.find({}, function(err, val) {
      
-       let t = val.map(t => t.email === email)
+       let t = val.map(t => t.email === giverEmail)
        for(let i = 0; i < t.length; i++){
            if(t[i]){
-               //let q = "mealPlanInfo.mealPlanFall.mealPerSemester"
-            let amount = amountEntered
-            let total = val[i].mealPlanInfo.mealPlanFall.mealPerSemester
-            let finalAmount = total + amount
-            let myquery = { email: email }
-            let newvalues = { $set: { "mealPlanInfo.mealPlanFall.mealPerSemester": finalAmount }}
+               giverCurrentMealSize = val[i].mealPlanInfo.mealPlanFall.mealPerSemester;
+               let new_giverMealSize = giverCurrentMealSize - amount;
+            console.log(new_giverMealSize)
+            let myquery = { email: giverEmail }
+            let newvalues = { $set: { "mealPlanInfo.mealPlanFall.mealPerSemester": new_giverMealSize }}
             User.updateOne(myquery, newvalues, function(err, res) {
-                // console.log('done')
-                // console.log(err)
+                console.log('done')
+                console.log(err)
             })
-             
-            console.log(val[i].mealPlanInfo.mealPlanFall.mealPerSemester)
-               return val[i]
            }
        }
        return undefined;
@@ -60,20 +53,49 @@ let info = function getInfo(email, amountEntered) {
    })
  }
 
-console.log(info('smoges16@gmail.com'))
+ let reciever = function giveTo(email, amount) {
+    User.find({}, function(err, val) {
+     
+       let t = val.map(t => t.email === email)
+       for(let i = 0; i < t.length; i++){
+           if(t[i]){
+               let currentMealSize = val[i].mealPlanInfo.mealPlanFall.mealPerSemester;
+               let new_MealSize = currentMealSize + amount;
+            let myquery = { email: email }
+            let newvalues = { $set: { "mealPlanInfo.mealPlanFall.mealPerSemester": new_MealSize }}
+            User.updateOne(myquery, newvalues, function(err, res) {
+                console.log('done')
+                console.log(err)
+            })
+           }
+       }
+       return undefined;
+  
+   })
+ }
 
-// if(User.find({email: 'SMOGES@b.com' })){
-//     console.log('here')
-//     User.updateOne({ email: 'SMOGES@b.com' }, { $set: { password: "TESTTT1234!" } })
-// }
-//user.update({ lastName: 'TESTTTTTTTTT123' }, { $set: { "userID": "TESTTT1234!" } })
 
-    
-    //  user.save((err, student) => {
-    //     console.log('AFTER')
+let donate = function donater(giverEmail, recieverEmail, amount) {
 
-    //     console.log(student)
-      
-    // });
+    giver(giverEmail,amount)
+    reciever(recieverEmail,amount)
+}
+
+let info = function giveTo(email) {
+    User.find({}, function(err, val) {
+     
+       let t = val.map(t => t.email === email)
+       for(let i = 0; i < t.length; i++){
+           if(t[i]){
+               return val[i]
+           
+           }
+       }
+       return undefined;
+  
+   })
+ }
+console.log(info("SMOGES11@b.com"))
+ //console.log(donate('SMOGES11@b.com','SMOGES1@b.com',2))
 
 

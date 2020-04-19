@@ -110,7 +110,7 @@ let userPersonalInfo = new mongoose.Schema({
 // })
 
 mongoose.model('User', userPersonalInfo)
-mongoose.connect('mongodb://localhost/test2',{ useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/test3',{ useNewUrlParser: true, useUnifiedTopology: true });
 // module.exports = {
 //     userMealPlanData: userMealPlanData,
 //     userPersonalInfo: userPersonalInfo

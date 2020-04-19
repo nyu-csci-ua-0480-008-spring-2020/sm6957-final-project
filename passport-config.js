@@ -3,23 +3,23 @@ const bcrypt = require('bcrypt')
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 function initialize(passport, getUserByEmail, getUserById) {
-  //           async function getInfo(email) {
-  //   await User.find({}, function(err, val) {
+            async function getInfo(email) {
+    await User.find({}, function(err, val) {
       
-  //       let t = val.map(t => t.email === email)
-  //       for(let i = 0; i < t.length; i++){
-  //           if(t[i]){
+        let t = val.map(t => t.email === email)
+        for(let i = 0; i < t.length; i++){
+            if(t[i]){
               
-  //            // console.log(val[i])
-  //               //return val[i]
-  //           }
-  //       }
-  //       return undefined;
+             // console.log(val[i])
+                return val[i]
+            }
+        }
+        return undefined;
    
-  //   })
-  // }
+    })
+  }
   const authenticateUser = async (email, password, done) => {
-   // const a = getInfo(email)
+    const a = await getInfo(email)
     const user = getUserByEmail(email)
     //console.log(a)
     if (user == null) {
@@ -28,7 +28,7 @@ function initialize(passport, getUserByEmail, getUserById) {
 
     try {
 
-      if (await bcrypt.compare(password, user.password)) {
+      if (await bcrypt.compare(password, a.password)) {
         return done(null, user)
       } else {
         return done(null, false, { message: 'Password incorrect' })
