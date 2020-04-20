@@ -17,7 +17,10 @@ if (process.env.NODE_ENV !== 'production') {
   let userMealSize = 0;
   let userDiningDollars = 0;
   let userEmail = ""
-  let userCampusCash = 0
+  let userCampusCash = 0;
+  let globalSent = 0;
+  let totalLeft = 0;
+
   initializePassport(
     passport,
     email => users.find(user => user.email === email),
@@ -45,8 +48,15 @@ if (process.env.NODE_ENV !== 'production') {
 
   app.post('/', (req, res) => {
     donate(req.body.yemail, req.body.email,req.body.amount)
-    res.redirect('/')
+    
+    res.redirect('/donate')
   })
+
+  app.get('/donate', (req, res) => {
+    res.render('donate.ejs', {globalSent, totalLeft, userCampusCash,userDiningDollars})
+  })
+
+  
   
  
 
@@ -158,6 +168,7 @@ if (process.env.NODE_ENV !== 'production') {
          if(t[i]){
              giverCurrentMealSize = val[i].mealPlanInfo.mealPlanFall.mealPerSemester;
              let new_giverMealSize = giverCurrentMealSize - amount;
+             totalLeft = new_giverMealSize;
           let myquery = { email: giverEmail }
           let newvalues = { $set: { "mealPlanInfo.mealPlanFall.mealPerSemester": new_giverMealSize }}
           User.updateOne(myquery, newvalues, function(err, res) {
@@ -193,6 +204,7 @@ let reciever = function giveTo(email, amount) {
 
 
 let donate = function donater(giverEmail, recieverEmail, amount) {
+globalSent = amount;
 
   giver(giverEmail,amount)
   reciever(recieverEmail,amount)
