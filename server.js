@@ -20,6 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
   let userCampusCash = 0;
   let globalSent = 0;
   let totalLeft = 0;
+  let globalDonate = 0;
 
   initializePassport(
     passport,
@@ -47,13 +48,26 @@ if (process.env.NODE_ENV !== 'production') {
   })
 
   app.post('/', (req, res) => {
-    donate(req.body.yemail, req.body.email,req.body.amount)
+    if(req.body.send_type_donate !== null ||req.body.send_type_donate !== undefined) {
+      donationPool(req.body.email)
+    }
+    else if(req.body.send_type_request !== null ||req.body.send_type_request !== undefined) {
+
+    }
+    else if(req.body.send_type_send !== null ||req.body.send_type_send !== undefined) {
+      directSend(req.body.yemail, req.body.email,req.body.amount)
+
+    }
     
-    res.redirect('/donate')
+    res.redirect('/donate-directly')
   })
 
-  app.get('/donate', (req, res) => {
+  app.get('/donate-directly', (req, res) => {
     res.render('donate.ejs', {globalSent, totalLeft, userCampusCash,userDiningDollars})
+  })
+
+  app.get('/donation-pool', (req, res) => {
+    res.render('donatePool.ejs', {globalDonate, totalLeft, userCampusCash,userDiningDollars})
   })
 
   
@@ -202,8 +216,31 @@ let reciever = function giveTo(email, amount) {
  })
 }
 
+let donationPool = function dpool(email, amount) {
+  User.find({}, function(err, val) {
+   
+    let t = val.map(t => t.email === email)
+    for(let i = 0; i < t.length; i++){
+        if(t[i]){
+            let currentTotalDonation = parseInt(val[i].ExchangeData.donation);
+            let increaseTotalDonation = amount+ currentTotalDonation;
+             globalDonate = increaseIncreaseTotalDonation
+         let myquery = { email: email }
+         let newvalues = { $set: { "ExchangeData.donation": parseInt(increaseTotalDonation) }}
+         User.updateOne(myquery, newvalues, function(err, res) {
+             console.log('done')
+             console.log(err)
+         })
+        }
+    }
+    return undefined;
 
-let donate = function donater(giverEmail, recieverEmail, amount) {
+})
+giver(email,amount)
+
+}
+
+let directSend = function donater(giverEmail, recieverEmail, amount) {
 globalSent = amount;
 
   giver(giverEmail,amount)

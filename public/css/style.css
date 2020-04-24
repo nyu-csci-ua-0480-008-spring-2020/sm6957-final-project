@@ -104,6 +104,16 @@ body{
   height: 410px;
 }
 
+.send {
+  border-radius: 25px;
+  display: table-cell;
+  margin-top: 20px;
+  margin-left: 350px;
+  background-color:#071049;
+  width: 86px;
+  height: 410px;
+}
+
 .request form {
   border-radius: 25px;
   padding-top: 20px;
@@ -111,7 +121,7 @@ body{
   padding-left: 20px;
   padding-right: 20px;
   width: 90%;
-  height: 400px;
+  height: 450px;
   background-color: #b4b7c8;
 }
 
@@ -122,8 +132,20 @@ body{
   padding-left: 20px;
   padding-right: 20px;
   width: 90%;
-  height: 400px;
+  height: 450px;
   background-color: #b4b7c8;
+}
+
+.send form {
+  border-radius: 25px;
+  padding-top: 20px;
+  margin-left: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 90%;
+  height: 450px;
+  background-color: #b4b7c8;
+
 }
 
 
