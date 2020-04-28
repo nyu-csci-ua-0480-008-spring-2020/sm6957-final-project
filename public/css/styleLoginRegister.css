@@ -1,11 +1,4 @@
-<head>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link type="text/css" rel="stylesheet" href="style.css">
-<link type="text/css" rel="stylesheet" href="styleLoginRegister.css">
-<style>
-  html {
+html {
     background-color: #071049;
   }
   
@@ -278,20 +271,3 @@
     font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; 
   }
   
-</style>
-</head>
-
-<div class="wrapper fadeInDown" style="background-color: #a6a1f7;">
-  <div id="formContent">
-    <div class="fadeIn first">
-        <h1 id="title">QuickMeal</h1>
-      <img src="logo.png" id="icon" alt="User Icon" />
-    </div>
-    <form method="POST" action="/login">
-      <input type="text" id="login" name="username" class="fadeIn second"  placeholder="user ID">
-      <input type="text" id="password" class="fadeIn third" name="password" placeholder="password" style="margin-bottom: 20px;">
-      <input type="submit" class="fadeIn fourth" value="Log In">
-      <a href="/register"><input type="button" class="fadeIn fourth" value="Register"></a>
-    </form>
-  </div>
-</div>
